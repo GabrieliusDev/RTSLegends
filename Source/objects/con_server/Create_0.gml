@@ -12,4 +12,4 @@ playerSpawn_y = 0;
 
 global.game_started = false;
 
-//start_game(true);
+start_game(true);
