@@ -1,0 +1,1 @@
+show_message(string(other.pointId) + " " + string(parent.pointId));
