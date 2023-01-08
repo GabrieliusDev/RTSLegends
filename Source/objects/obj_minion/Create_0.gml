@@ -15,3 +15,9 @@ moveY = y;
 //stats
 maxHp = 150;
 hp = maxHp;
+
+//Combat
+attacking = undefined;
+inCombat = false;
+focusRadius = 150;
+combatRadius = 36;

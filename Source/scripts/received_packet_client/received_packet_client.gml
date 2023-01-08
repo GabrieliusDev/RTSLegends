@@ -70,6 +70,20 @@ if(buffer != undefined){
 			var objectId = buffer_read(buffer, buffer_u16);
 			client_update_entity_pos(type, pos_x, pos_y, objectId);
 		break;
+		#endregion		
+		#region minion data update
+		case network.minion_data_update:
+			var objectId = buffer_read(buffer, buffer_u16);			
+			var xx = buffer_read(buffer, buffer_u16);
+			var yy = buffer_read(buffer, buffer_u16);
+			var moveX = buffer_read(buffer, buffer_u16);
+			var moveY = buffer_read(buffer, buffer_u16);
+			var currentIndex = buffer_read(buffer, buffer_u8);
+			var hp = buffer_read(buffer, buffer_u8);
+			var attackingId = buffer_read(buffer, buffer_u16);
+			var incombat = buffer_read(buffer, buffer_bool);			
+			client_update_minion(objectId, xx, yy, moveX, moveY, currentIndex, hp, attackingId, incombat);
+		break;
 		#endregion
 	}
 }

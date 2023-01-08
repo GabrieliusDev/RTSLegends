@@ -18,6 +18,8 @@ enum network
 {
 	player_connect,
 	
+	minion_data_update,
+	
 	spawned_minion,
 	spawned_entity,
 	entity_kill,
