@@ -1,19 +1,18 @@
-enum ownership
-{
-	Neutral,
-	Player1,
-	Player2	
-}
+/// @description Insert description here
+// You can write your code in this editor
 
-enum types
-{
-	outpost, 
-	barracks,
-	tower,
-	gatherer
-}
+takenBy = undefined;
+takingFor = 0;
+takenAmount = 0;
+maxTakenAmount = 100;
+capturingAmount = 5;
+captureZoneRadius = 200;
 
-soldier_growth_rate = 0.5;
-energy_gathering_rate = 0.5;
+player1_entity_count = 0;
+player2_entity_count = 0;
+capturing_playerId = undefined;
 
-point_create_event(self);
+flagHeight = 16;
+poleAvailableHeight = 73;
+
+alarm[0] = room_speed;

@@ -11,16 +11,7 @@ global.game_started = false;
 //Resources
 global.energy = 100;
 
-//Prices
-global.prices = ds_map_create();
-ds_map_add(global.prices, types.outpost, 15);
-ds_map_add(global.prices, types.barracks, 50);
-ds_map_add(global.prices, types.tower, 100);
-ds_map_add(global.prices, types.gatherer, 30);
-
 //GUI
-timeOnStart = current_time;
-
 w_offset = 40;
 h_offset = 100;
 

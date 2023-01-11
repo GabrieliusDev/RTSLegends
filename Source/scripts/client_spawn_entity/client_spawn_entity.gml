@@ -15,10 +15,16 @@ function client_spawn_entity(type = argument0, xx = argument1, yy = argument2){
 			switch(argument[3])
 			{
 				case 0:
-					object_set_sprite(hq, spr_HQ_player1);
+					with(hq)
+					{
+						sprite_index = spr_HQ_player1;
+					}
 				break;
 				case 1:
-					object_set_sprite(hq, spr_HQ_player2);
+					with(hq)
+					{
+						sprite_index = spr_HQ_player2;
+					}
 				break;
 			}			
 		break;

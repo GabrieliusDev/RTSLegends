@@ -11,6 +11,8 @@ moveCompleteDistance = 60;
 
 moveX = x;
 moveY = y;
+capturing = undefined;
+moveSpeed = 2;
 
 //stats
 maxHp = 150;
@@ -21,7 +23,7 @@ damage = 10;
 attacking = undefined;
 inCombat = false;
 focusRadius = 150;
-combatRadius = 36;
+combatRadius = 30;
 hitIntervals = room_speed*1;
 
 alarm_set(0, room_speed);

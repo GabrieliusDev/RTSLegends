@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "obj_minion_server",
   "spriteId": {
-    "name": "spr_minion",
-    "path": "sprites/spr_minion/spr_minion.yy",
+    "name": "spr_minion_player1",
+    "path": "sprites/spr_minion_player1/spr_minion_player1.yy",
   },
   "solid": true,
   "visible": true,

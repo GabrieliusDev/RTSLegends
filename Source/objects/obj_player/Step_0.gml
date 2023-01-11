@@ -1,8 +1,5 @@
-closest_point = noone;
-closest_enemy_point = noone;
-tower_in_range = noone;
-distance = global.movement_range +1;
-distance_to_enemy = global.movement_range +1;
+/// @description Insert description here
+// You can write your code in this editor
 
 ///Movement
 if(keyboard_check(ord("W")) || keyboard_check(vk_up))
@@ -24,19 +21,4 @@ if (keyboard_check(ord("D")) || keyboard_check(vk_right))
 {
 	if(x + camera_speed <= room_width - w_half)
 		x += camera_speed;
-}
-
-//Gui building keyboard press
-if(keyboard_check_pressed(ord("1"))){
-	building_mode = true;
-	building = gui_button_types.outpost;	
-}else if(keyboard_check_pressed(ord("2"))){
-	building_mode = true;
-	building = gui_button_types.barracks;	
-}else if(keyboard_check_pressed(ord("3"))){
-	building_mode = true;
-	building = gui_button_types.tower;	
-}else if(keyboard_check_pressed(ord("4"))){
-	building_mode = true;
-	building = gui_button_types.gatherer;	
 }

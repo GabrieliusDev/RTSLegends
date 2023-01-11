@@ -6,11 +6,13 @@ if(buffer != undefined){
 	{
 		#region player_connect
 		case network.player_connect: // Initial coonection
-			var playerId = buffer_read(buffer, buffer_u8);			
+			var playerId = buffer_read(buffer, buffer_u8);	
+			var timeOnStart = buffer_read(buffer, buffer_u8);		
 			var titleBox = instance_create_depth(room_width/2, room_height/2, depth, obj_title_box);
 			titleBox.title = "You Are Player"+string(playerId);
 			obj_player.playerId = playerId;
 			global.game_started = true;
+			global.TimeOnStart = current_time;
 			
 			switch(playerId)
 			{
@@ -73,17 +75,32 @@ if(buffer != undefined){
 		#endregion		
 		#region minion data update
 		case network.minion_data_update:
+			var time = buffer_read(buffer, buffer_u32);		
 			var objectId = buffer_read(buffer, buffer_u16);			
 			var xx = buffer_read(buffer, buffer_u16);
 			var yy = buffer_read(buffer, buffer_u16);
 			var moveX = buffer_read(buffer, buffer_u16);
 			var moveY = buffer_read(buffer, buffer_u16);
 			var currentIndex = buffer_read(buffer, buffer_u8);
-			var hp = buffer_read(buffer, buffer_u8);
+			var hp = buffer_read(buffer, buffer_u8);	
+			var incombat = buffer_read(buffer, buffer_bool);
+			client_update_minion(time, objectId, xx, yy, moveX, moveY, currentIndex, hp, incombat);
+		break;
+		#endregion		
+		#region minion target update
+		case network.minion_target_update:
+			var objectId = buffer_read(buffer, buffer_u16);			
+			var incombat = buffer_read(buffer, buffer_bool);
+			var hasTarget = buffer_read(buffer, buffer_bool);
 			var attackingId = buffer_read(buffer, buffer_u16);
-			var incombat = buffer_read(buffer, buffer_bool);			
-			client_update_minion(objectId, xx, yy, moveX, moveY, currentIndex, hp, attackingId, incombat);
+			client_update_minions_target(objectId, incombat, hasTarget, attackingId);
 		break;
 		#endregion
+		#region entity kill
+		case network.entity_kill:		
+			var objectId = buffer_read(buffer, buffer_u16);	
+			client_kill_entity(objectId);
+		break;
+		#endregion	
 	}
 }

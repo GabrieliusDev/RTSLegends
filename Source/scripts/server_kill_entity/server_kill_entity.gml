@@ -21,7 +21,6 @@ function server_kill_entity(entity = argument0){
 			server_buffer = con_server.server_buffer;
 			buffer_seek(server_buffer, buffer_seek_start, 0);
 			buffer_write(server_buffer, buffer_u8, network.entity_kill);
-			buffer_write(server_buffer, buffer_u8, entityType.minion);
 			buffer_write(server_buffer, buffer_u16, entity.objectId);
 			send_data_to_all_players(server_buffer);
 			

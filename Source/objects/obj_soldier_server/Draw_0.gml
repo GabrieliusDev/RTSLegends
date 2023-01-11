@@ -1,1 +1,0 @@
-soldier_draw_event(self);

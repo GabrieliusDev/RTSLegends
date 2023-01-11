@@ -1,25 +1,33 @@
-if(pop <= 0 && attacker != undefined)
-{
-	owner = attacker.owner;
-	attacking = undefined;
-}
+/// @description Insert description here
+// You can write your code in this editor
 
-if(owner != ownership.Neutral && p_type == types.barracks)
-{
-	pop += soldier_growth_rate/room_speed;	
-}
+player1_entity_count = 0;
+player2_entity_count = 0;
 
-if(p_type == types.gatherer)
+for (var k = ds_map_find_first(global.CombatEntities); !is_undefined(k); k = ds_map_find_next(global.CombatEntities, k)) 
 {
-	if(owner == obj_player.playerId)
+	var entity = global.CombatEntities[? k];
+	
+	if(entity.eType == entityType.minion)
 	{
-		global.energy += energy_gathering_rate/room_speed;	
-	}else
-	{
-		with(obj_player_server)
+		var dist = distance_to_object(entity);
+		if(dist <= captureZoneRadius)
 		{
-			energy += other.energy_gathering_rate/room_speed;	
-			update_player_stats(playerId);
-		}	
+			switch(entity.playerId)
+			{
+				case 0:
+					player1_entity_count++;
+				break;
+				case 1:
+					player2_entity_count++;
+				break;
+			}
+		}
 	}
 }
+
+capturing_playerId = 0;
+if(player2_entity_count == player1_entity_count)
+	capturing_playerId = undefined;
+else if(player2_entity_count > player1_entity_count)
+	capturing_playerId = 1;

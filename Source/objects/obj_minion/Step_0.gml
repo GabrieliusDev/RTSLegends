@@ -16,8 +16,11 @@ if(path != undefined && playerId != undefined && attacking == undefined)
 			}	
 		}
 	}
-
-	mp_potential_step(moveX, moveY, 2, false);
+	
+	if(attacking == undefined)
+	{	
+		mp_potential_step(moveX, moveY, moveSpeed, false);
+	}
 }
 
 if(attacking == undefined)
@@ -27,12 +30,12 @@ if(attacking == undefined)
 	var dist = distance_to_point(attacking.x, attacking.y);
 	if(dist > focusRadius)
 	{
-		attacking = undefined;		
+		attacking = undefined;
 	}else
 	{
 		if(dist > combatRadius)
 		{
-			mp_potential_step(attacking.x, attacking.y, 2, false);
+			mp_potential_step(attacking.x, attacking.y, moveSpeed, false);
 			inCombat = false;
 		}else
 		{

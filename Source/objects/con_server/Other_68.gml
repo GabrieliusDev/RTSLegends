@@ -9,17 +9,18 @@ switch(type_event)
 		var _player = instance_create_depth(playerSpawn_x, playerSpawn_y, depth, obj_player_server);
 		_player.playerId = socket;
 		ds_map_add(socket_to_instanceId, socket, _player);
+		global.TimeOnStart = current_time;
 		
 		buffer_seek(server_buffer, buffer_seek_start, 0);
 		buffer_write(server_buffer, buffer_u8, network.player_connect);			
 		buffer_write(server_buffer, buffer_u8, string(socket));
+		buffer_write(server_buffer, buffer_u32, global.TimeOnStart);
 		network_send_packet(socket, server_buffer, buffer_tell(server_buffer));
 		
 		if(ds_list_size(socket_list) == 1)
 		{
 			start_game();
 		}
-		
 		break;
 		
 	case network_type_disconnect:
