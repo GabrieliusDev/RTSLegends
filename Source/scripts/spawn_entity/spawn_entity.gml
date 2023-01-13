@@ -26,13 +26,13 @@ function spawn_entity(type = argument0, xx = argument1, yy = argument2){
 			
 			switch(argument[3])
 			{
-				case 0:
+				case 1:
 					with(hq)
 					{
 						sprite_index = spr_HQ_player1;
 					}
 				break;
-				case 1:
+				case 2:
 					with(hq)
 					{
 						sprite_index = spr_HQ_player2;
@@ -47,6 +47,21 @@ function spawn_entity(type = argument0, xx = argument1, yy = argument2){
 			buffer_write(server_buffer, buffer_u16, xx);
 			buffer_write(server_buffer, buffer_u16, yy);
 			buffer_write(server_buffer, buffer_u8, argument[3]);
+			send_data_to_all_players(server_buffer);
+		break;
+		case entityType.point:
+			var point = instance_create_depth(xx, yy, depth, obj_point_server);
+			point.objectId = global.NewPointId;
+			
+			ds_map_add(global.Points, global.NewPointId++, point);
+			
+			server_buffer = con_server.server_buffer;
+			buffer_seek(server_buffer, buffer_seek_start, 0);
+			buffer_write(server_buffer, buffer_u8, network.spawned_entity);
+			buffer_write(server_buffer, buffer_u8, entityType.point);
+			buffer_write(server_buffer, buffer_u16, xx);
+			buffer_write(server_buffer, buffer_u16, yy);
+			buffer_write(server_buffer, buffer_u8, point.objectId);
 			send_data_to_all_players(server_buffer);
 		break;
 	}

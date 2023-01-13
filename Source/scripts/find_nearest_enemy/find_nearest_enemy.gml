@@ -24,6 +24,8 @@ function find_nearest_enemy(){
 	if(nearestDist <= focusRadius)
 	{
 		attacking = nearestEntity;
+		inCombat = false;
+		lastInteractionWithTargetAt = current_time;
 		if(obj_player.isHost)
 			send_minion_target(objectId, inCombat, true, attacking.objectId);
 	}

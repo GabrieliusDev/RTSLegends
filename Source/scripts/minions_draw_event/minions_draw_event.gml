@@ -4,10 +4,7 @@ function minions_draw_event(){
 	draw_self();
 	depth = -y;
 	
-	if(moveX > x)
-		image_xscale = -1;
-	else
-		image_xscale = 1;
+	flip_horizontaly_by_direction_pointing(moveX);
 
 	//HP
 	var hp_bar_width = 25;
@@ -28,9 +25,28 @@ function minions_draw_event(){
 	if(global.DebugOn)
 	{
 		draw_set_alpha(0.2);
-		draw_circle_color(x, y, focusRadius, c_white, c_white, false);
-		draw_circle_color(x, y, combatRadius, c_red, c_red, false);
+		//draw_circle_color(x, y, focusRadius, c_white, c_white, false);
+		//draw_circle_color(x, y, combatRadius, c_red, c_red, false);
 		draw_set_alpha(1);
+		
+		var moving = false;
+		if(last_pos_x != x || last_pos_y != y)
+			moving = true;
+			
+		var coliding = false;
+		if(position_meeting(x, y, all))
+			coliding = true;
+			
+		
+		if(show_debug)
+		{
+			draw_text(x, y-60, "inC:" + string(inCombat) + " isM:" + string(moving) + " isCol:" + string(coliding));
+			draw_text(x, y-40, "x: " +  string(x) + " " + string(moveX)  + " y:" + string(y) + " " + string(moveY));
+		}
+		
+		last_pos_x = x;
+		last_pos_y = y;
+		
 		if(attacking != undefined)
 		{
 			if(playerId == 1)
@@ -39,7 +55,7 @@ function minions_draw_event(){
 				draw_line_color(x, y, attacking.x, attacking.y, c_aqua, c_aqua);
 		}
 
-		if(obj_player.isHost)
+		if(!obj_player.isHost)
 		{
 			draw_text(x, y-80, "c_x: " + string(x) + "; c_y: " +string(y));
 			draw_text(x, y-60, "c_x: " + string(last_pos_x) + "; c_y: " + string(last_pos_y));

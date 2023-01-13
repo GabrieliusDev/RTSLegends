@@ -8,16 +8,18 @@ function client_spawn_minion(xx = argument0, yy = argument1, path = argument2, p
 	
 	switch(playerId)
 	{
-		case 0:
-			with(minion)
-			{
-				sprite_index = spr_minion_player1;
-			}
-		break;
 		case 1:
 			with(minion)
 			{
-				sprite_index = spr_minion_player2;
+				sprite_index = spr_minion_animated_player1;
+				image_index = floor(random(sprite_get_number(sprite_index)));
+			}
+		break;
+		case 2:
+			with(minion)
+			{
+				sprite_index = spr_minion_animated_player2;
+				image_index = floor(random(sprite_get_number(sprite_index)));
 			}
 		break;
 	}

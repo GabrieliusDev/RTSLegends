@@ -3,14 +3,28 @@
 function minions_step_event(){
 	if(path != undefined && playerId != undefined && attacking == undefined)
 	{
-		with(obj_point_server)
-		{
-			if(distance_to_point(other.x, other.y) < captureZoneRadius + 100 && (takenAmount < maxTakenAmount || takingFor != other.playerId))
-			{
-				other.capturing = self;
-				break;
-			}
-		}
+		#region Finding what can capture nearby
+			if(obj_player.isHost)
+				with(obj_point_server)
+				{
+					if(distance_to_point(other.x, other.y) < captureZoneRadius + 100 && (takenAmount < maxTakenAmount || takingFor != other.playerId))
+					{
+						other.capturing = self;
+						break;
+					}
+				}
+			else
+				with(obj_point)
+				{
+					if(distance_to_point(other.x, other.y) < captureZoneRadius + 100 && (takenAmount < maxTakenAmount || takingFor != other.playerId))
+					{
+						other.capturing = self;
+						break;
+					}
+				}
+		#endregion
+		
+		#region Finding next move on path
 		if(distance_to_point(moveX, moveY) < moveCompleteDistance && !capturing)
 		{
 			with(obj_path_point)
@@ -24,7 +38,9 @@ function minions_step_event(){
 				}	
 			}
 		}
+		#endregion
 
+		#region Deciding next move step
 		if(attacking == undefined)
 		{	
 			if(capturing != undefined)
@@ -38,17 +54,23 @@ function minions_step_event(){
 				mp_potential_step(moveX, moveY, moveSpeed, false);
 			}		
 		}
+		#endregion
 	}
 
+	#region Combat logic
 	if(attacking == undefined)
 	{
 		find_nearest_enemy();
-	}else{
+	}else
+	{
 		var dist = distance_to_point(attacking.x, attacking.y);
 		if(dist > focusRadius)
 		{
 			attacking = undefined;
-			send_minion_target(objectId, inCombat, false, undefined);
+			if(obj_player.isHost)
+			{
+				send_minion_target(objectId, inCombat, false, undefined);
+			}
 		}else
 		{
 			if(dist > combatRadius)
@@ -59,10 +81,16 @@ function minions_step_event(){
 			{
 				if(!inCombat)
 				{
-					alarm[1] = 1;	
+					if(obj_player.isHost)
+					{
+						alarm[1] = 1;	
+					}
 					inCombat = true;
 				}
 			}
 		}
+		if(current_time - lastInteractionWithTargetAt >= 1500 && x == last_pos_x && y == last_pos_y)
+			find_nearest_enemy();
 	}
+	#endregion
 }

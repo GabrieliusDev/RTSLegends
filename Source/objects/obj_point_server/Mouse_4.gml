@@ -1,4 +1,5 @@
 /// @description Insert description here
 // You can write your code in this editor
-if(takenAmount < maxTakenAmount)
-	takenAmount+=capturingAmount;
+
+/*if(takenAmount < maxTakenAmount)
+	takenAmount+=capturingAmount;*/

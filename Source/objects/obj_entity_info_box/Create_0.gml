@@ -11,6 +11,6 @@ angle = random_range(-45,45);
 
 info = "";
 alpha = 1;
-disolve_speed = room_speed*1
+disolve_speed = room_speed*0.5
 
 alarm[0] = disolve_speed;

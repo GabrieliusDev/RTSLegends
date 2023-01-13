@@ -7,9 +7,9 @@ var h_pos = poleAvailableHeight*(takenAmount/maxTakenAmount);
 
 if(takenAmount != 0)
 {
-	if(takingFor == 0)
-		draw_sprite(spr_point_flag_player1, 0, x, y-flagHeight-h_pos);
 	if(takingFor == 1)
+		draw_sprite(spr_point_flag_player1, 0, x, y-flagHeight-h_pos);
+	if(takingFor == 2)
 		draw_sprite(spr_point_flag_player2, 0, x, y-flagHeight-h_pos);
 }
 

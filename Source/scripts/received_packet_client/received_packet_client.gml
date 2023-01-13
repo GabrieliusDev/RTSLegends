@@ -31,17 +31,7 @@ if(buffer != undefined){
 			var pos_y = buffer_read(buffer, buffer_u16);
 			set_camera_pos_to_start(pos_x, pos_y);
 		break;
-		#endregion
-		#region spawned_minion
-		case network.spawned_minion:
-			var pos_x = buffer_read(buffer, buffer_u16);
-			var pos_y = buffer_read(buffer, buffer_u16);
-			var path = buffer_read(buffer, buffer_u8);
-			var playerId = buffer_read(buffer, buffer_u8);
-			var objectId = buffer_read(buffer, buffer_u16);
-			client_spawn_minion(pos_x, pos_y, path, playerId, objectId);
-		break;
-		#endregion
+		#endregion	
 		#region spawned_entity
 		case network.spawned_entity:
 			var type = buffer_read(buffer, buffer_u8);			
@@ -60,6 +50,10 @@ if(buffer != undefined){
 					var playerId = buffer_read(buffer, buffer_u8);	
 					client_spawn_entity(type, pos_x, pos_y, playerId);
 				break;
+				case entityType.point:
+					var objectId = buffer_read(buffer, buffer_u8);
+					client_spawn_entity(type, pos_x, pos_y, objectId);
+				break;
 			}
 			
 		break;
@@ -73,18 +67,54 @@ if(buffer != undefined){
 			client_update_entity_pos(type, pos_x, pos_y, objectId);
 		break;
 		#endregion		
+		#region entity kill
+		case network.entity_kill:		
+			var objectId = buffer_read(buffer, buffer_u16);	
+			client_kill_entity(objectId);
+		break;
+		#endregion	
+		#region enitity update
+		case network.entity_update:		
+			var type = buffer_read(buffer, buffer_u8);	
+			switch(type)
+			{
+				case entityType.point:
+					var objectId = buffer_read(buffer, buffer_u8);	
+					var takenAmount = buffer_read(buffer, buffer_u8);
+					var takingFor = buffer_read(buffer, buffer_u8);	
+					var lastTimeTriggered = buffer_read(buffer, buffer_u32);	
+					client_update_entity(type, objectId, takenAmount, takingFor, lastTimeTriggered);
+				break;
+			}
+		break;
+		#endregion
 		#region minion data update
 		case network.minion_data_update:
 			var time = buffer_read(buffer, buffer_u32);		
-			var objectId = buffer_read(buffer, buffer_u16);			
+			var objectId = buffer_read(buffer, buffer_u16);	
+			var minion = ds_map_find_value(global.Minions, objectId);
+			
 			var xx = buffer_read(buffer, buffer_u16);
 			var yy = buffer_read(buffer, buffer_u16);
-			var moveX = buffer_read(buffer, buffer_u16);
-			var moveY = buffer_read(buffer, buffer_u16);
-			var currentIndex = buffer_read(buffer, buffer_u8);
-			var hp = buffer_read(buffer, buffer_u8);	
-			var incombat = buffer_read(buffer, buffer_bool);
-			client_update_minion(time, objectId, xx, yy, moveX, moveY, currentIndex, hp, incombat);
+									
+			calculate_ping(time);
+			InterpolatePosition(minion, minion.last_pos_x, minion.last_pos_y, xx, yy, (current_time-global.TimeOnStart)/time);
+			minion.last_pos_x = xx;
+			minion.last_pos_y = yy;
+			minion.moveX = buffer_read(buffer, buffer_u16);
+			minion.moveY = buffer_read(buffer, buffer_u16);
+			minion.currentIndex = buffer_read(buffer, buffer_u8);
+			minion.hp = buffer_read(buffer, buffer_u8);
+			minion.incombat = buffer_read(buffer, buffer_bool);
+			var isCapturing = buffer_read(buffer, buffer_bool);
+			if(isCapturing)
+			{
+				var point = ds_map_find_value(global.Points, buffer_read(buffer, buffer_u8));
+				minion.capturing = point;
+			}else
+			{
+				minion.capturing = undefined;	
+			}
 		break;
 		#endregion		
 		#region minion target update
@@ -96,11 +126,15 @@ if(buffer != undefined){
 			client_update_minions_target(objectId, incombat, hasTarget, attackingId);
 		break;
 		#endregion
-		#region entity kill
-		case network.entity_kill:		
-			var objectId = buffer_read(buffer, buffer_u16);	
-			client_kill_entity(objectId);
+		#region spawned_minion
+		case network.spawned_minion:
+			var pos_x = buffer_read(buffer, buffer_u16);
+			var pos_y = buffer_read(buffer, buffer_u16);
+			var path = buffer_read(buffer, buffer_u8);
+			var playerId = buffer_read(buffer, buffer_u8);
+			var objectId = buffer_read(buffer, buffer_u16);
+			client_spawn_minion(pos_x, pos_y, path, playerId, objectId);
 		break;
-		#endregion	
+		#endregion		
 	}
 }

@@ -4,6 +4,7 @@
 if(attacking != undefined)
 {
 	if(attacking.hp > damage){
+		lastInteractionWithTargetAt = current_time;
 		attacking.hp -= damage;	
 		var info_box = instance_create_depth(attacking.x, attacking.y, attacking.depth-1, obj_entity_info_box);
 		info_box.info = damage;

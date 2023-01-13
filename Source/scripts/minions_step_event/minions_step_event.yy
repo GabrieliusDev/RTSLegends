@@ -6,6 +6,6 @@
   "isCompatibility": false,
   "parent": {
     "name": "Minions",
-    "path": "folders/Scripts/Common/Minions.yy",
+    "path": "folders/Scripts/Common/Entities/Minions.yy",
   },
 }

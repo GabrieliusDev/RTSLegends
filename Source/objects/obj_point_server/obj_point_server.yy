@@ -36,7 +36,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Server",
-    "path": "folders/Objects/Server.yy",
+    "name": "Buildings",
+    "path": "folders/Objects/Server/Buildings.yy",
   },
 }
