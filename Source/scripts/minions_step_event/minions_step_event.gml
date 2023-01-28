@@ -60,7 +60,7 @@ function minions_step_event(){
 	#region Combat logic
 	if(attacking == undefined)
 	{
-		find_nearest_enemy();
+		minion_set_nearest_enemy();
 	}else
 	{
 		var dist = distance_to_point(attacking.x, attacking.y);
@@ -90,7 +90,7 @@ function minions_step_event(){
 			}
 		}
 		if(current_time - lastInteractionWithTargetAt >= 1500 && x == last_pos_x && y == last_pos_y)
-			find_nearest_enemy();
+			minion_set_nearest_enemy();
 	}
 	#endregion
 }

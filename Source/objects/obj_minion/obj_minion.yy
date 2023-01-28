@@ -32,7 +32,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Client",
-    "path": "folders/Objects/Client.yy",
+    "name": "Minions",
+    "path": "folders/Objects/Client/Minions.yy",
   },
 }

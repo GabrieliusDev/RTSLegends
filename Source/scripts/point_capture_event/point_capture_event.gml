@@ -7,21 +7,18 @@ function point_capture_event(){
 	for (var k = ds_map_find_first(global.CombatEntities); !is_undefined(k); k = ds_map_find_next(global.CombatEntities, k)) 
 	{
 		var entity = global.CombatEntities[? k];
-	
-		if(entity.eType == entityType.minion)
+
+		var dist = distance_to_object(entity);
+		if(dist <= captureZoneRadius)
 		{
-			var dist = distance_to_object(entity);
-			if(dist <= captureZoneRadius)
+			switch(entity.playerId)
 			{
-				switch(entity.playerId)
-				{
-					case 1:
-						player1_entity_count++;
-					break;
-					case 2:
-						player2_entity_count++;
-					break;
-				}
+				case 1:
+					player1_entity_count++;
+				break;
+				case 2:
+					player2_entity_count++;
+				break;
 			}
 		}
 	}

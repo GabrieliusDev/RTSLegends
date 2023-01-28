@@ -7,6 +7,18 @@
 		gatherer,
 		nothing
 	}
+	
+	enum motivationType
+	{
+		m_capture,
+		m_defend,
+		m_attack
+	}
+	
+	enum soundEffect
+	{
+		fx_attack_sword	
+	}
 
 	enum paths
 	{
@@ -27,12 +39,25 @@
 		
 			spawned_minion,
 		#endregion
+		
+		#region Heroes
+			spawned_hero,
+			updated_hero,
+		#endregion
+	
+		#region Motivation
+			spawned_motivation,		
+		#endregion
 	
 		#region Entities
 			spawned_entity,
 			entity_kill,
 			entity_update,
 			entity_pos_update,
+		#endregion
+		
+		#region Client server commands
+			ask_to_spawn_motivation,
 		#endregion
 	
 		#region Misc
@@ -47,6 +72,7 @@
 		hero_warrior,
 		hero_last_index,
 		
+		motivation,
 		minion,
 		path_point,
 		point,
@@ -57,16 +83,22 @@
 #region Variables
 	global.Minions = ds_map_create();
 	global.CombatEntities = ds_map_create();
-	global.Points = ds_map_create();
 	global.Heroes = ds_map_create();
+	
+	global.Motivations = ds_map_create();
+	global.OwnMotivations = ds_map_create();
+	
+	global.Points = ds_map_create();			
 
-	global.NewMinionsId = 0;
-	global.NewPointId = 0;
+	global.NewCombatEntityId = 1;
+	global.NewPointId = 1;
+	global.NewMotivationId = 1;
 
 	global.TimeOnStart = current_time;
 	global.Ping = 0;
 
 	global.DebugOn = false;
+	global.BuildVersion = "V0.1";
 #endregion
 
 #region Coordinates

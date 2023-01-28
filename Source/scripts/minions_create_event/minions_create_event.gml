@@ -3,6 +3,9 @@
 function minions_create_event(){
 	objectId = undefined;
 	displayOnMap = true;
+	
+	motivation_hoffset = 40;
+	motivation_scale = 1;
 
 	currentIndex = -1;
 	path = undefined;

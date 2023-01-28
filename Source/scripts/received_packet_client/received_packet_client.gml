@@ -32,11 +32,71 @@ if(buffer != undefined){
 			set_camera_pos_to_start(pos_x, pos_y);
 		break;
 		#endregion	
+		#region spawned_hero
+			case network.spawned_hero:
+				var type = buffer_read(buffer, buffer_u8);			
+				var pos_x = buffer_read(buffer, buffer_u16);
+				var pos_y = buffer_read(buffer, buffer_u16);
+				var playerId = buffer_read(buffer, buffer_u8);
+				var objectId = buffer_read(buffer, buffer_u16);
+			
+				switch(type)
+				{
+					case entityType.hero_warrior:
+						client_spawn_hero(type, pos_x, pos_y, playerId, objectId);
+					break;
+				}
+			break;
+		#endregion
+		#region update_hero
+			case network.updated_hero:
+				var type = buffer_read(buffer, buffer_u8);
+				var time = buffer_read(buffer, buffer_u32);		
+				var objectId = buffer_read(buffer, buffer_u16);
+				
+				switch(type)
+				{
+					case entityType.hero_warrior:
+						var xx = buffer_read(buffer, buffer_u16);
+						var yy = buffer_read(buffer, buffer_u16);
+						var moveX = buffer_read(buffer, buffer_u16);
+						var moveY = buffer_read(buffer, buffer_u16);
+						var hp = buffer_read(buffer, buffer_u16);			
+						var inCombat = buffer_read(buffer, buffer_bool);
+						var morale = buffer_read(buffer, buffer_u8);
+						var boredom = buffer_read(buffer, buffer_u8);
+						var motivated = buffer_read(buffer, buffer_bool);
+	
+						//Guarding target
+						var isGuarding = buffer_read(buffer, buffer_bool);
+						var guarding = undefined;
+						if(isGuarding)
+							guarding = buffer_read(buffer, buffer_u8);
+				
+						//Attacking target
+						var isAttacking = buffer_read(buffer, buffer_bool);
+						var attacking = undefined;
+						if(isAttacking)
+							attacking = buffer_read(buffer, buffer_u8);
+				
+						//Capturing target
+						var isCapturing = buffer_read(buffer, buffer_bool);
+						var pointToCapture = undefined;
+						if(isCapturing)
+							pointToCapture = buffer_read(buffer, buffer_u8);
+						
+						client_update_hero(type, time, objectId, xx, yy, moveX, moveY, hp, inCombat, morale, boredom, motivated, guarding, attacking, pointToCapture);
+
+					break;
+				}	
+				
+			break;
+		#endregion
 		#region spawned_entity
 		case network.spawned_entity:
 			var type = buffer_read(buffer, buffer_u8);			
 			var pos_x = buffer_read(buffer, buffer_u16);
-			var pos_y = buffer_read(buffer, buffer_u16);
+			var pos_y = buffer_read(buffer, buffer_u16);			
 			
 			switch(type)
 			{

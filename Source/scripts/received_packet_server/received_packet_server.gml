@@ -5,30 +5,23 @@ if(buffer != undefined && socket != undefined){
 
 	switch(msgId)
 	{
-		case network.not_implemented://attack_order:
-			var p_parent = buffer_read(buffer, buffer_u8);
-			var p_attacking = buffer_read(buffer, buffer_u8);
-			
-			var p_point = ds_map_find_value(global.Points, p_parent);
-			var a_point = ds_map_find_value(global.Points, p_attacking);
-					
-			if(p_point != a_point)
-			{
-				p_point.attacking = a_point;	
-				a_point.attacker = p_point;
-			}
-			else
-				p_point.attacking = undefined;
-	//		break;
-//		case network.not_implemented://build:
-			var xx = buffer_read(buffer, buffer_u16);
-			var yy = buffer_read(buffer, buffer_u16);
-			var type = buffer_read(buffer, buffer_u8);
+		case network.ask_to_spawn_motivation:			
+			objectId = buffer_read(buffer, buffer_u16);
 			var playerId = buffer_read(buffer, buffer_u8);
-
-			build_point(xx, yy, type, playerId, true);
+			entity = undefined;
 			
-			break;
+			with(all)
+			{
+				if(objectId == other.objectId)	
+				{
+					other.entity = self
+					break;
+				}
+			}
+			
+			if(entity != undefined)
+				create_motivation_from_client(entity, playerId);
+		break;
 	}
 
 }

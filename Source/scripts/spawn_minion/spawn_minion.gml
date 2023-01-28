@@ -4,7 +4,7 @@ function spawn_minion(xx = argument0, yy = argument1, path = argument2, playerId
 	var minion = instance_create_depth(xx, yy, depth, obj_minion_server);
 	minion.path = path;
 	minion.playerId = playerId;
-	minion.objectId = global.NewMinionsId;
+	minion.objectId = global.NewCombatEntityId;
 	
 	switch(playerId)
 	{
@@ -24,8 +24,8 @@ function spawn_minion(xx = argument0, yy = argument1, path = argument2, playerId
 		break;
 	}
 	
-	ds_map_add(global.Minions, global.NewMinionsId, minion);
-	ds_map_add(global.CombatEntities, global.NewMinionsId, minion);
+	ds_map_add(global.Minions, global.NewCombatEntityId, minion);
+	ds_map_add(global.CombatEntities, global.NewCombatEntityId, minion);
 	 
 	 
 	server_buffer = con_server.server_buffer;
@@ -35,8 +35,8 @@ function spawn_minion(xx = argument0, yy = argument1, path = argument2, playerId
 	buffer_write(server_buffer, buffer_u16, yy);
 	buffer_write(server_buffer, buffer_u8, path);
 	buffer_write(server_buffer, buffer_u8, playerId);
-	buffer_write(server_buffer, buffer_u16, global.NewMinionsId); 
+	buffer_write(server_buffer, buffer_u16, global.NewCombatEntityId); 
 	send_data_to_all_players(server_buffer);
 	
-	global.NewMinionsId += 1;
+	global.NewCombatEntityId++;
 }

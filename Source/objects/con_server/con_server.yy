@@ -6,7 +6,10 @@
   "solid": false,
   "visible": true,
   "managed": true,
-  "spriteMaskId": null,
+  "spriteMaskId": {
+    "name": "spr_player_colision_box",
+    "path": "sprites/spr_player_colision_box/spr_player_colision_box.yy",
+  },
   "persistent": false,
   "parentObjectId": null,
   "physicsObject": false,

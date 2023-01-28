@@ -2,10 +2,7 @@
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
   "name": "obj_path_point",
-  "spriteId": {
-    "name": "Sprite2",
-    "path": "sprites/Sprite2/Sprite2.yy",
-  },
+  "spriteId": null,
   "solid": false,
   "visible": false,
   "managed": true,

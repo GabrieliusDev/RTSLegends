@@ -5,6 +5,9 @@ function point_event_create(){
 	eType = entityType.point;
 	displayOnMap = true;
 	
+	motivation_hoffset = 110;
+	motivation_scale = 1.5;
+	
 	lastTimeTrigered = current_time;
 
 	takenBy = undefined;

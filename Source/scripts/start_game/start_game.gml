@@ -11,6 +11,14 @@ function start_game(debug = argument0)
 	
 	playerCount = ds_list_size(con_server.socket_list) + 1;	
 	
+	with(obj_player)
+	{
+		var playerCoord = ds_list_find_value(global.HqCoords, other.playerCount-1);
+		set_camera_pos_to_start(playerCoord.xx, playerCoord.yy);
+		playerId = other.playerCount;	
+		isHost = true;	
+	}
+	
 	#region Generating Paths
 		if(!debug)
 		{	
@@ -46,14 +54,7 @@ function start_game(debug = argument0)
 				send_camera_position(i+1, playerCoord.xx, playerCoord.yy);
 			}
 		}
-	
-		with(obj_player)
-		{
-			var playerCoord = ds_list_find_value(global.HqCoords, other.playerCount-1);
-			set_camera_pos_to_start(playerCoord.xx, playerCoord.yy);
-			playerId = other.playerCount;	
-			isHost = true;	
-		}
+			
 	
 	#endregion
 	
