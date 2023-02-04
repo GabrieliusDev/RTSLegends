@@ -23,6 +23,7 @@ function spawn_entity(type = argument0, xx = argument1, yy = argument2){
 		case entityType.headQuarters:
 			var hq = instance_create_depth(xx, yy, depth, obj_HQ_server);
 			hq.playerId = argument[3];
+			hq.objectId = global.NewObjectId;
 			
 			switch(argument[3])
 			{
@@ -47,13 +48,14 @@ function spawn_entity(type = argument0, xx = argument1, yy = argument2){
 			buffer_write(server_buffer, buffer_u16, xx);
 			buffer_write(server_buffer, buffer_u16, yy);
 			buffer_write(server_buffer, buffer_u8, argument[3]);
+			buffer_write(server_buffer, buffer_u8, global.NewObjectId++);
 			send_data_to_all_players(server_buffer);
 		break;
 		case entityType.point:
 			var point = instance_create_depth(xx, yy, depth, obj_point_server);
-			point.objectId = global.NewPointId;
+			point.objectId = global.NewObjectId;
 			
-			ds_map_add(global.Points, global.NewPointId++, point);
+			ds_map_add(global.Points, global.NewObjectId++, point);
 			
 			server_buffer = con_server.server_buffer;
 			buffer_seek(server_buffer, buffer_seek_start, 0);
@@ -63,6 +65,23 @@ function spawn_entity(type = argument0, xx = argument1, yy = argument2){
 			buffer_write(server_buffer, buffer_u16, yy);
 			buffer_write(server_buffer, buffer_u8, point.objectId);
 			send_data_to_all_players(server_buffer);
+		break;
+		case entityType.motivation:
+			var motivation = argument[3];
+			
+			server_buffer = con_server.server_buffer;
+			buffer_seek(server_buffer, buffer_seek_start, 0);
+			buffer_write(server_buffer, buffer_u8, network.spawned_entity);
+			buffer_write(server_buffer, buffer_u8, entityType.motivation);
+			buffer_write(server_buffer, buffer_u16, xx);
+			buffer_write(server_buffer, buffer_u16, yy);
+			buffer_write(server_buffer, buffer_u16, motivation.objectId);
+			buffer_write(server_buffer, buffer_u8, motivation.playerId);
+			buffer_write(server_buffer, buffer_u16, motivation.target.objectId);
+			buffer_write(server_buffer, buffer_u16, motivation.h_offset);
+			buffer_write(server_buffer, buffer_u8, motivation.image_xscale);
+			buffer_write(server_buffer, buffer_u8, motivation.image_yscale);
+			send_data_to_all_players(server_buffer);			
 		break;
 	}
 }

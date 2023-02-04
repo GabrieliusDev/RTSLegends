@@ -15,6 +15,7 @@ function client_spawn_entity(type = argument0, xx = argument1, yy = argument2){
 		case entityType.headQuarters:
 			var hq = instance_create_depth(xx, yy, depth, obj_HQ);
 			hq.playerId = argument[3];
+			hq.objectId = argument[4];
 			switch(argument[3])
 			{
 				case 1:
@@ -38,6 +39,24 @@ function client_spawn_entity(type = argument0, xx = argument1, yy = argument2){
 			point.objectId = argument[3];
 			
 			ds_map_add(global.Points, point.objectId, point);
+		break;
+		#endregion
+		#region Motivation
+		case entityType.motivation:
+			var motivation = instance_create_depth(xx, yy, depth, obj_motivation);
+			ds_map_add(global.Motivations, argument[3], motivation);
+			motivation.objectId = argument[3];
+			motivation.playerId = argument[4];
+			motivation.target = get_object_by_id(argument[5]);
+			motivation.h_offset = argument[6];
+			motivation.image_xscale = argument[7];
+			motivation.image_yscale = argument[8];
+			
+			pId = argument[4];
+			with(motivation)
+			{
+				set_motivation_type(target, other.pId);
+			}
 		break;
 		#endregion
 	}

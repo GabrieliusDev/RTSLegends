@@ -4,6 +4,8 @@
 //if(playerId == obj_player.playerId)
 	draw_self();
 
+draw_text(x, y, instance_exists(target));
+
 if(playerId != undefined)
 {
 	draw_set_alpha(0.2);

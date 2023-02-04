@@ -12,6 +12,17 @@ function client_kill_entity(objectId = argument0){
 		}
 	}
 	
+	for (var k = ds_map_find_first(global.Motivations); !is_undefined(k); k = ds_map_find_next(global.Motivations, k))
+	{
+		var cEntity = global.Motivations[? k];
+		
+		if(cEntity.target.objectId == objectId)
+		{
+			cEntity.target = undefined;
+			ds_map_delete(global.Motivations, k);
+			instance_destroy(cEntity, false);		
+		}
+	}
 	
 	switch(entity.eType)
 	{

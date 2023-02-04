@@ -6,7 +6,7 @@ function spawn_hero(type = argument0, xx = argument1, yy = argument2){
 		case entityType.hero_warrior:
 			var warrior = instance_create_depth(mouse_x, mouse_y, -mouse_y, hero_warrior_server);
 			warrior.playerId = obj_player.playerId;
-			warrior.objectId = global.NewCombatEntityId;
+			warrior.objectId = global.NewObjectId;
 			ds_map_add(global.CombatEntities, warrior.objectId, warrior);
 	 
 	 
@@ -17,10 +17,10 @@ function spawn_hero(type = argument0, xx = argument1, yy = argument2){
 			buffer_write(server_buffer, buffer_u16, xx);
 			buffer_write(server_buffer, buffer_u16, yy);
 			buffer_write(server_buffer, buffer_u8, obj_player.playerId);
-			buffer_write(server_buffer, buffer_u16, global.NewCombatEntityId); 
+			buffer_write(server_buffer, buffer_u16, global.NewObjectId); 
 			send_data_to_all_players(server_buffer);
 	
-			global.NewCombatEntityId++;
+			global.NewObjectId++;
 		break;
 	}
 }

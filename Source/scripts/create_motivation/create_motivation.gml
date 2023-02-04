@@ -29,12 +29,13 @@ function create_motivation(xx = argument0, yy = argument1, playerId = argument2)
 					ds_map_add(global.Motivations, objectId, motivation);
 					with(motivation)
 					{
-						set_motivation_type(other.motivationTarget);	
+						set_motivation_type(other.motivationTarget, playerId);	
 						target = other.motivationTarget;
 						h_offset = other.motivationTarget.motivation_hoffset;
 						image_xscale = other.motivationTarget.motivation_scale;
 						image_yscale = other.motivationTarget.motivation_scale;
 					}
+					spawn_entity(entityType.motivation, motivation.x, motivation.y, motivation);
 				}
 			}
 		}

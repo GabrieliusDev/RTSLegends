@@ -15,7 +15,7 @@ function server_kill_entity(entity = argument0){
 	{
 		var cEntity = global.Motivations[? k];
 		
-		if(cEntity.target == entity)
+		if(cEntity.target.objectId == entity.objectId)
 		{
 			cEntity.target = undefined;
 			ds_map_delete(global.Motivations, k);

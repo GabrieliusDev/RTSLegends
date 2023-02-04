@@ -46,7 +46,7 @@
 		#endregion
 	
 		#region Motivation
-			spawned_motivation,		
+					
 		#endregion
 	
 		#region Entities
@@ -90,8 +90,7 @@
 	
 	global.Points = ds_map_create();			
 
-	global.NewCombatEntityId = 1;
-	global.NewPointId = 1;
+	global.NewObjectId = 1;
 	global.NewMotivationId = 1;
 
 	global.TimeOnStart = current_time;

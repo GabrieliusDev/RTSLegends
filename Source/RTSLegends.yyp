@@ -145,6 +145,7 @@
     {"id":{"name":"spr_color_palette","path":"sprites/spr_color_palette/spr_color_palette.yy",},"order":28,},
     {"id":{"name":"client_spawn_entity","path":"scripts/client_spawn_entity/client_spawn_entity.yy",},"order":3,},
     {"id":{"name":"obj_entity_info_box","path":"objects/obj_entity_info_box/obj_entity_info_box.yy",},"order":1,},
+    {"id":{"name":"get_object_by_id","path":"scripts/get_object_by_id/get_object_by_id.yy",},"order":8,},
     {"id":{"name":"obj_player_server","path":"objects/obj_player_server/obj_player_server.yy",},"order":1,},
     {"id":{"name":"rm_client","path":"rooms/rm_client/rm_client.yy",},"order":0,},
   ],

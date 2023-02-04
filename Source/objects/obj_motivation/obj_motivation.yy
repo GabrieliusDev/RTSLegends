@@ -2,7 +2,10 @@
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
   "name": "obj_motivation",
-  "spriteId": null,
+  "spriteId": {
+    "name": "spr_motivation_attack",
+    "path": "sprites/spr_motivation_attack/spr_motivation_attack.yy",
+  },
   "solid": false,
   "visible": true,
   "managed": true,

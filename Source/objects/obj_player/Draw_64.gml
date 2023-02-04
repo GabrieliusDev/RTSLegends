@@ -45,18 +45,18 @@ if(global.DebugOn)
 		}
 	}
 	
-	var pos = 3;
+	var pos = 1;
 	draw_text(5, v_start_pos + v_spacing * 3, "Motivations Count: " + string(ds_map_size(global.Motivations)));
 	draw_text(5, v_start_pos + v_spacing * 4, "OwnMotivations Count: " + string(ds_map_size(global.OwnMotivations)));
 	draw_text(5, v_start_pos + v_spacing * 5, "Combat Entity Count: " + string(ds_map_size(global.CombatEntities)));
 	draw_text(5, v_start_pos + v_spacing * 6, "Minions Count: " + string(ds_map_size(global.Minions)));
 	draw_text(5, v_start_pos + v_spacing * 7, "Heroes Count: " + string(ds_map_size(global.Heroes)));
-	/*for (var k = ds_map_find_first(global.Motivations); !is_undefined(k); k = ds_map_find_next(global.Motivations, k)) {
+	for (var k = ds_map_find_first(global.Motivations); !is_undefined(k); k = ds_map_find_next(global.Motivations, k)) {
 		var entity = global.Motivations[? k];
 		if(entity != undefined){
-			draw_text(100, 20*pos, string(entity.objectId) + " " + string(entity));
+			draw_text(5, v_start_pos + v_spacing * (7+pos), string(entity.objectId) + " " + string(entity.target==undefined));
 			pos++;
 		}
-	}*/
+	}
 }
 #endregion

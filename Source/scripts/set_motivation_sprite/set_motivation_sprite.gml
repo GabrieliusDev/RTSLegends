@@ -21,8 +21,7 @@ function set_motivation_type(target = argument0, playerId = argument1){
 			if(playerId == target.takingFor)
 			{
 				sprite_index = spr_motivation_defend;
-				mType = motivationType.m_defend;
-				
+				mType = motivationType.m_defend;			
 			}else
 			{
 				sprite_index = spr_motivation_capture;

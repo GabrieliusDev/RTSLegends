@@ -108,14 +108,24 @@ if(buffer != undefined){
 				break;			
 				case entityType.headQuarters:
 					var playerId = buffer_read(buffer, buffer_u8);	
-					client_spawn_entity(type, pos_x, pos_y, playerId);
+					var objectId = buffer_read(buffer, buffer_u8);	
+					client_spawn_entity(type, pos_x, pos_y, playerId, objectId);
 				break;
 				case entityType.point:
 					var objectId = buffer_read(buffer, buffer_u8);
 					client_spawn_entity(type, pos_x, pos_y, objectId);
 				break;
+				case entityType.motivation:
+					var objectId = buffer_read(buffer, buffer_u16);
+					var playerId = buffer_read(buffer, buffer_u8);
+					var targetObjectId = buffer_read(buffer, buffer_u16);
+					var h_offset = buffer_read(buffer, buffer_u16);
+					var mImage_xScale = buffer_read(buffer, buffer_u8);
+					var mImage_yScale = buffer_read(buffer, buffer_u8);
+	
+					client_spawn_entity(type, pos_x, pos_y, objectId, playerId, targetObjectId, h_offset, mImage_xScale, mImage_yScale);
+				break;
 			}
-			
 		break;
 		#endregion
 		#region entity pos update
